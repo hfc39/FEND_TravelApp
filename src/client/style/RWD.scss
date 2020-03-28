@@ -1,0 +1,260 @@
+/*680px*/
+$font-stack: 'Roboto Condensed', sans-serif;
+
+body {
+    height: auto;
+    width: 99vw;
+    background-color:rgb(236, 230, 209);
+    margin: 0.5vw;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-size: 40px;
+    color: #232628;
+    font-family: $font-stack;
+}
+
+p {
+    font-family: $font-stack;
+    line-height: normal;
+    font-weight:400;
+    font-size: 14px;
+}
+
+b{
+    font-weight:bold;
+  }
+  
+  
+a{
+    text-decoration: underline;
+    color: #0000CD;
+  }
+
+  div {
+      margin: 0;
+  }
+
+/*container*/
+.container{
+    width:98vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-left: auto;
+    margin-right: auto;
+    }
+
+#left {
+    width: 98vw;
+    margin-bottom: 5px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.HeadImg {
+    content:url(".././media/purple.jpg");
+    width: 98vw;
+    min-height: 280px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#right {
+    background-color: rgb(43, 73, 119);
+    height: auto;
+    width: 98vw;
+    margin-bottom: 5px;
+    padding-bottom:20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.formarea {
+    margin: 5px 20px;
+    line-height: 1em;
+}
+
+form {
+    font-family: $font-stack;
+    line-height: normal;
+    color: #232628;
+    font-size: 20px;
+
+    div {
+        height: 30px;
+        width: auto;
+        margin: 10px 0;
+        line-height: 1.5em;
+    }
+}
+
+
+input {
+    width: 80%;
+    height: 30px;
+    background-color: #abb4b9;
+    margin-bottom: 5px;
+    font-size: 16px;
+}
+
+button{
+    width: 100px;
+    height: 50px;
+    background: #d68058;
+    color: #232628;
+    font-size: 24px;
+    font-family: $font-stack;
+    box-shadow: 2px 4px 5px #444;
+    margin: 30px 0;
+}
+
+button:hover {
+    color: #d8e0e6;
+    font-size: 26px;
+    font-weight:bold;
+}
+
+footer {
+    text-align: center;
+    height: 80px;
+    margin-top: 20px;
+    color: rgb(43, 73, 119);
+    font-family: $font-stack;
+}
+
+#globe {
+    display: none;
+}
+    /*Medium size monitor breakpoint*/
+ @media (min-width:681px) and (max-width:1000px){
+    body {
+        background-color:rgb(179, 202, 212);
+    }
+     /* container section*/
+     .container{
+        display: grid;
+        grid-template-columns: 43vw 55vw ;
+        grid-template-rows: auto 50px;
+        grid-template-areas:
+        "left right"
+        "ft ft";
+        }
+
+    #left {
+        grid-area: left;
+        width: auto;
+        }
+
+   #right {
+       grid-area: right;
+       background-color:rgb(179, 202, 212);
+       width: 55vw;
+        padding:25px 0 0 20px;
+        border: #d68058 2px;
+    }
+
+    button{
+        width: 100px;
+        height: 40px;
+        background: #d68058;
+        color: #232628;
+        font-size: 22px;
+        font-family: $font-stack;
+        box-shadow: 2px 4px 5px #444;
+        margin: 50px 0 10px 0;   
+    }
+
+    button:hover {
+        color: #d8e0e6;
+        font-size: 22px;
+        font-weight:bold;
+    }
+
+    footer {
+        grid-area: ft;
+    }
+
+    .HeadImg {
+        content:url(".././media/cloud.jpg");
+        width: 43vw;
+        min-height: 280px;
+
+    }
+    #globe {
+        display: block;
+        content:url(".././media/plane.png");
+        margin-left: auto;
+        margin-right: 10vw;
+        width: 30%;
+    }
+ }
+
+ /*Large size monitor breakpoint*/
+@media (min-width:1001px) {
+    body {
+        background-color:rgb(179, 202, 212);
+    }
+     /* container section*/
+     .container{
+        display: grid;
+        grid-template-columns: 43vw 55vw ;
+        grid-template-rows: auto 50px;
+        grid-template-areas:
+        "left right"
+        "ft ft";
+        }
+
+    #left {
+        grid-area: left;
+        width: auto;
+        }
+
+   #right {
+       grid-area: right;
+       background-color:rgb(179, 202, 212);
+       width: 55vw;
+        padding:25px 0 0 20px;
+        border: #d68058 2px;
+    }
+
+    button{
+        width: 100px;
+        height: 40px;
+        background: #d68058;
+        color: #232628;
+        font-size: 22px;
+        font-family: $font-stack;
+        box-shadow: 2px 4px 5px #444;
+        margin: 50px 0 10px 0;   
+    }
+
+    button:hover {
+        color: #d8e0e6;
+        font-size: 22px;
+        font-weight:bold;
+    }
+
+    footer {
+        grid-area: ft;
+    }
+
+    .HeadImg {
+        content:url(".././media/cloud.jpg");
+        width: 43vw;
+        min-height: 280px;
+
+    }
+   
+    #globe {
+        content:url(".././media/g.png");
+    display: block;
+    margin-left: auto;
+    margin-right: 10vw;
+    width: 50%;
+    }
+}
