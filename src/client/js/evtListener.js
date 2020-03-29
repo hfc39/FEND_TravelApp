@@ -8,7 +8,7 @@ function init () {
     e.preventDefault();
     const place = document.getElementById('city').value;
     const timeInput = document.getElementById("date").value;
-    console.log('5 pretend to print something')
+    console.log('12 pretend to print something')
     const time = toEpoch(timeInput);
     const now = Math.floor(new Date().getTime()/1000.0) 
     console.log(time)
