@@ -10,18 +10,9 @@ export const updateUI = async (dataSet,url) => {
         const it = img.firstChild
         it.className = ""
         it.src= uiData[uiData.length-1].cityImage
-      //   fetch (uiData[0].cityImage)
-      //      .then(response=>{
-      //          return response.blob()
-      //      })
-      //      .then(blob => {
-      //          console.log(blob);
-      //          const img = document.getElementById('left')
-       //         const it = document.getElementsByClassName('HeadImg')
-      //          img.removeChild(it)
-      //          const photo = document.createElement('img')
-      //          img.appendChild(photo)
-        //        photo.src = blob)
+        document.getElementById('head').innerHTML =`<h2>Weather Forecaset for Your Trip:<hr></h2><h1>${uiData[0].city.toUpperCase()} on ${document.getElementById("date").value}:</h1>`;
+        document.getElementById('body').innerHTML = `<p> The weather forcase is: <br>Summary: bha<br>Temperature: ${uiData[0].tempHigh} ~ ${uiData[0].tempLow}<br> Humidity: ${uiData[0].humidity}%<br>UV Index: ${uiData[0].uvIndex}.<br><br><button onClick="window.location.reload();" style="font-size:15px">Remove the Trip or Start a New Trip</button>`
+
     }catch (error){
         console.log('UpdateUI error'+ error);
     };

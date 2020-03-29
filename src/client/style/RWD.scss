@@ -14,7 +14,6 @@ h3,
 h4,
 h5,
 h6 {
-    font-size: 40px;
     color: #232628;
     font-family: $font-stack;
 }
@@ -77,6 +76,15 @@ a{
 .formarea {
     margin: 5px 20px;
     line-height: 1em;
+    h1 {
+        font-family: $font-stack;
+        font-size: 30px;
+    }
+    h3 {
+        font-family: $font-stack;
+        font-size: 20px;
+        font-weight:bold;
+    }
 }
 
 form {
@@ -103,7 +111,7 @@ input {
 }
 
 button{
-    width: 100px;
+    width: auto;
     height: 50px;
     background: #d68058;
     color: #232628;
@@ -159,7 +167,7 @@ footer {
     }
 
     button{
-        width: 100px;
+        width: auto;
         height: 40px;
         background: #d68058;
         color: #232628;
@@ -223,7 +231,7 @@ footer {
     }
 
     button{
-        width: 100px;
+        width: auto;
         height: 40px;
         background: #d68058;
         color: #232628;
