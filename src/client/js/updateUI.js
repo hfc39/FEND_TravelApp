@@ -1,3 +1,5 @@
+import { response } from "express";
+
 export const updateUI = async (dataSet,url) => {
     console.log('CP 2__ UPDATE UI')
     console.log(dataSet[0].cityImage)
@@ -6,6 +8,15 @@ export const updateUI = async (dataSet,url) => {
         const uiData = await request.json()
         console.log(uiData);   
         console.log('updateUI working')
+        const img = document.getElementById('left')
+        fetch (uiData[0].cityImage)
+            .then(response=>{
+                return response.blob()
+            })
+            .then(blob => {
+                console.log(blob);
+                img.innerHTML = `<img src=${blob}>`
+            }) 
     }catch (error){
         console.log('UpdateUI error'+ error);
     };
