@@ -31,16 +31,28 @@ async function getAllData (req, res) {
     currentTime: req.body.currentTime
     }
     projectData.push(data)
-    await getGeo();
-    console.log('CP 2__PRINT PROJECT DATA')
-    console.log(projectData)
-    await darkSky();
-    console.log('CP 4__PRINT PROJECT DATA')
-    console.log(projectData)
-    await pixaBay();
-    console.log('CP 6__PRINT PROJECT DATA')
-    console.log(projectData)
-    res.send(projectData)
+    let sec = projectData[projectData.length-1].travelDate - projectData[projectData.length-1].currentTime
+    //if further than a week, predict
+    if (sec >= 604800){
+        projectData[projectData.length-1].mode = "predict"
+        await getGeo();
+        console.log('CP 2__PRINT PROJECT DATA')
+        await darkSky();
+        console.log('CP 4__PRINT PROJECT DATA')
+        await pixaBay();
+        console.log('CP 6__PRINT PROJECT DATA')
+        res.send(projectData)
+        // forecast
+    } else {
+        projectData[projectData.length-1].mode = "forecast"
+        await getGeo();
+        console.log('CP 2__PRINT PROJECT DATA')
+        await darkSky2();
+        console.log('CP 4__PRINT PROJECT DATA')
+        await pixaBay();
+        console.log('CP 6__PRINT PROJECT DATA')
+        res.send(projectData)
+    }
 }
 
 const getGeo = async () =>{
@@ -63,21 +75,51 @@ const darkSky = async () =>{
     console.log('CP 3__getDarkSky starts')
     console.log(`https://api.darksky.net/forecast/5461f90b8cb3ab62a2d2d8b7929a5e64/${projectData[projectData.length-1].lat},${projectData[projectData.length-1].lng},${projectData[projectData.length-1].travelDate}?units=si&exclude=hourly,flags,currently`)
     const res = await fetch(`https://api.darksky.net/forecast/5461f90b8cb3ab62a2d2d8b7929a5e64/${projectData[projectData.length-1].lat},${projectData[projectData.length-1].lng},${projectData[projectData.length-1].travelDate}?units=si&exclude=hourly,flags,currently`, {mode: 'no-cors'})
-    try {
-    const allData = await res.json()
-    console.log(JSON.stringify(allData))
-    projectData[projectData.length-1].tempHigh = allData.daily.data[0].temperatureHigh;
-    projectData[projectData.length-1].tempLow = allData.daily.data[0].temperatureLow;
-    projectData[projectData.length-1].humidity = allData.daily.data[0].humidity;
-    projectData[projectData.length-1].uvIndex = allData.daily.data[0].uvIndex;
-    projectData[projectData.length-1].summary = allData.daily.data[0].summary;
-    return allData
+        try {
+            const allData = await res.json()
+            console.log(JSON.stringify(allData))
+            projectData[projectData.length-1].tempHigh = allData.daily.data[0].temperatureHigh;
+            projectData[projectData.length-1].tempLow = allData.daily.data[0].temperatureLow;
+            projectData[projectData.length-1].humidity = allData.daily.data[0].humidity;
+            projectData[projectData.length-1].uvIndex = allData.daily.data[0].uvIndex;
+            projectData[projectData.length-1].summary = allData.daily.data[0].summary;
+            return allData
+        }
+        catch(error) {
+            console.log("error", error);
+        }
     }
-    catch(error) {
-      console.log("error", error);
-      // appropriately handle the error
-    }
-}
+
+    const darkSky2 = async () =>{
+        console.log('CP 3__getDarkSky2 starts')
+        console.log(`https://api.darksky.net/forecast/5461f90b8cb3ab62a2d2d8b7929a5e64/${projectData[projectData.length-1].lat},${projectData[projectData.length-1].lng}?units=si&exclude=hourly,flags,currently`)
+        const res = await fetch(`https://api.darksky.net/forecast/5461f90b8cb3ab62a2d2d8b7929a5e64/${projectData[projectData.length-1].lat},${projectData[projectData.length-1].lng}?units=si&exclude=hourly,flags,currently`, {mode: 'no-cors'})
+            try {
+                const allData = await res.json()
+                projectData[projectData.length-1].weeklysum = allData.daily.summary;
+                projectData[projectData.length-1].day1H = allData.daily.data[0].temperatureHigh;
+                projectData[projectData.length-1].day1L = allData.daily.data[0].temperatureLow;
+                projectData[projectData.length-1].day2H = allData.daily.data[1].temperatureHigh;
+                projectData[projectData.length-1].day2L = allData.daily.data[1].temperatureLow;
+                projectData[projectData.length-1].day3H = allData.daily.data[2].temperatureHigh;
+                projectData[projectData.length-1].day3L = allData.daily.data[2].temperatureLow;
+                projectData[projectData.length-1].day4H = allData.daily.data[3].temperatureHigh;
+                projectData[projectData.length-1].day4L = allData.daily.data[3].temperatureLow;
+                projectData[projectData.length-1].day5H = allData.daily.data[4].temperatureHigh;
+                projectData[projectData.length-1].day5L = allData.daily.data[4].temperatureLow;
+                projectData[projectData.length-1].day6H = allData.daily.data[5].temperatureHigh;
+                projectData[projectData.length-1].day6L = allData.daily.data[5].temperatureLow;
+                projectData[projectData.length-1].day7H = allData.daily.data[6].temperatureHigh;
+                projectData[projectData.length-1].day7L = allData.daily.data[6].temperatureLow;
+                return allData
+            }
+            catch(error) {
+                console.log("error", error);
+            }
+        }
+    
+
+
 
  async function pixaBay() {
      const res = await fetch(`https://pixabay.com/api/?key=15724973-ef055a8d189206d736e1a60dd&image_type=photo&orientatin=horizontal&q=${projectData[projectData.length-1].city}`)

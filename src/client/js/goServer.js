@@ -1,4 +1,5 @@
-import { updateUI } from "./updateUI";
+import { updateUIF } from "./updateUIF";
+import { updateUIP } from './updateUIP'
 
 export const goServer = async (url, data={})=>{
     const res = await fetch ( url , {
@@ -16,8 +17,14 @@ export const goServer = async (url, data={})=>{
             console.log(serverData); 
             console.log('CP 1_goServer working')
             console.log(serverData[0].cityImage)
-            updateUI(serverData)
-            return serverData
+            let diff = serverData[serverData.length-1].travelDate-serverData[serverData.length-1].currentTime;
+            if (diff < 604800){
+                updateUIF(serverData)
+                return serverData
+            } else {
+                updateUIP(serverData)
+                return serverData
+            }
         }catch (error){
             console.log('goServer 2 error'+ error);
         }
