@@ -1,6 +1,5 @@
 import { goServer } from './goServer'
 import { toEpoch } from './toEpoch'
-import { updateUI } from './updateUI'
 
 
 function init () {
@@ -13,10 +12,6 @@ function init () {
     const now = Math.floor(new Date().getTime()/1000.0) 
     console.log(time)
     goServer('/geo',{city: place,travelDate: time,currentTime: now})  
-    //.then(function(res){
-    //    console.log('top')
-    //}).then(updateUI(serverData))
-    //})
 })
 }
 

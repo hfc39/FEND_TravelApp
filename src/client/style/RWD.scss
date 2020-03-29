@@ -54,18 +54,21 @@ a{
     margin-bottom: 5px;
     margin-left: auto;
     margin-right: auto;
-}
-
-.HeadImg {
-    content:url(".././media/purple.jpg");
-    width: 98vw;
-    min-height: 280px;
-    margin-left: auto;
-    margin-right: auto;
+    .HeadImg {
+        content:url(".././media/purple.jpg");
+        width: 98vw;
+        min-height: 280px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .new {
+        max-width: 600px;
+        width: 98vw;
+    }
 }
 
 #right {
-    background-color: rgb(43, 73, 119);
+    background-color: rgb(69, 118, 192);
     height: auto;
     width: 98vw;
     margin-bottom: 5px;
@@ -75,7 +78,7 @@ a{
 }
 .formarea {
     margin: 5px 20px;
-    line-height: 1em;
+    line-height: 1.5em;
     h1 {
         font-family: $font-stack;
         font-size: 30px;
@@ -94,7 +97,7 @@ form {
     font-size: 20px;
 
     div {
-        height: 30px;
+        height: auto;
         width: auto;
         margin: 10px 0;
         line-height: 1.5em;
@@ -155,7 +158,17 @@ footer {
 
     #left {
         grid-area: left;
-        width: auto;
+        width: 43vw;
+        .HeadImg {
+            content:url(".././media/cloud.jpg");
+            width: 43vw;
+            min-height: 280px;
+        }
+        .new {
+            width: 43vw;
+            margin-top: auto;
+            margin-bottom: auto;
+        }
         }
 
    #right {
@@ -187,12 +200,7 @@ footer {
         grid-area: ft;
     }
 
-    .HeadImg {
-        content:url(".././media/cloud.jpg");
-        width: 43vw;
-        min-height: 280px;
 
-    }
     #globe {
         display: block;
         content:url(".././media/plane.png");
@@ -219,7 +227,17 @@ footer {
 
     #left {
         grid-area: left;
-        width: auto;
+        width: 43vw;
+        .HeadImg {
+            content:url(".././media/cloud.jpg");
+            width: 43vw;
+            min-height: 280px;
+        }
+        .new {
+            width: 43vw;
+            margin-top: auto;
+            margin-bottom: auto;
+        }
         }
 
    #right {
@@ -251,12 +269,7 @@ footer {
         grid-area: ft;
     }
 
-    .HeadImg {
-        content:url(".././media/cloud.jpg");
-        width: 43vw;
-        min-height: 280px;
 
-    }
    
     #globe {
         content:url(".././media/g.png");
