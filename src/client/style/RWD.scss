@@ -54,15 +54,18 @@ a{
     margin-bottom: 5px;
     margin-left: auto;
     margin-right: auto;
-}
-
-.HeadImg {
-    content:url(".././media/purple.jpg");
-    width: 98vw;
-    min-height: 280px;
-    margin-left: auto;
-    margin-right: auto;
-}
+    .HeadImg {
+        content:url(".././media/purple.jpg");
+        width: 98vw;
+        min-height: 280px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .new {
+        max-width: 600px;
+        width: 98vw;
+    }
+}   
 
 #right {
     background-color: rgb(43, 73, 119);
@@ -72,20 +75,24 @@ a{
     padding-bottom:20px;
     margin-left: auto;
     margin-right: auto;
-}
-.formarea {
-    margin: 5px 20px;
-    line-height: 1em;
-    h1 {
-        font-family: $font-stack;
-        font-size: 30px;
+    .formarea {
+        margin: 5px 20px;
+        line-height: 1em;
+        h1 {
+            font-family: $font-stack;
+            font-size: 30px;
+        }
+        h3 {
+            font-family: $font-stack;
+            font-size: 20px;
+            font-weight:bold;
+        }
+        #light {
+            color:#d8e0e6;
+        }
     }
-    h3 {
-        font-family: $font-stack;
-        font-size: 20px;
-        font-weight:bold;
-    }
 }
+
 
 form {
     font-family: $font-stack;
@@ -155,8 +162,18 @@ footer {
 
     #left {
         grid-area: left;
-        width: auto;
+        width: 43vw;
+        .HeadImg {
+            content:url(".././media/cloud.jpg");
+            width: 43vw;
+            min-height: 280px;    
         }
+        .new {
+            width: 43vw;
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+       }
 
    #right {
        grid-area: right;
@@ -187,18 +204,17 @@ footer {
         grid-area: ft;
     }
 
-    .HeadImg {
-        content:url(".././media/cloud.jpg");
-        width: 43vw;
-        min-height: 280px;
-
-    }
     #globe {
         display: block;
         content:url(".././media/plane.png");
         margin-left: auto;
         margin-right: 10vw;
         width: 30%;
+    }
+    #formarea {
+        #light {
+            color:#232628;
+        }
     }
  }
 
@@ -219,7 +235,7 @@ footer {
 
     #left {
         grid-area: left;
-        width: auto;
+        width: 43vw;
         }
 
    #right {
@@ -228,6 +244,7 @@ footer {
        width: 55vw;
         padding:25px 0 0 20px;
         border: #d68058 2px;
+        line-height: 1.5em;
     }
 
     button{
@@ -265,4 +282,8 @@ footer {
     margin-right: 10vw;
     width: 50%;
     }
-}
+    #formarea {
+        #light {
+            color:#232628;
+        }
+}}
