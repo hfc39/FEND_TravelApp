@@ -14,9 +14,6 @@ export const goServer = async (url, data={})=>{
         const data = await fetch ('/all')
         try {
             const serverData = await data.json()
-            console.log(serverData); 
-            console.log('CP 1_goServer working')
-            console.log(serverData[0].cityImage)
             let diff = serverData[serverData.length-1].travelDate-serverData[serverData.length-1].currentTime;
             if (diff < 604800){
                 updateUIF(serverData)
