@@ -36,21 +36,15 @@ async function getAllData (req, res) {
     if (sec >= 604800){
         projectData[projectData.length-1].mode = "predict"
         await getGeo();
-        console.log('CP 2__PRINT PROJECT DATA')
-        await darkSky();
-        console.log('CP 4__PRINT PROJECT DATA')
+        await darkSkyP();
         await pixaBay();
-        console.log('CP 6__PRINT PROJECT DATA')
         res.send(projectData)
         // forecast
     } else {
         projectData[projectData.length-1].mode = "forecast"
         await getGeo();
-        console.log('CP 2__PRINT PROJECT DATA')
-        await darkSky2();
-        console.log('CP 4__PRINT PROJECT DATA')
+        await darkSkyF();
         await pixaBay();
-        console.log('CP 6__PRINT PROJECT DATA')
         res.send(projectData)
     }
 }
@@ -71,7 +65,7 @@ const getGeo = async () =>{
     }
 }
 
-const darkSky = async () =>{
+const darkSkyP = async () =>{
     console.log('CP 3__getDarkSky starts')
     console.log(`https://api.darksky.net/forecast/5461f90b8cb3ab62a2d2d8b7929a5e64/${projectData[projectData.length-1].lat},${projectData[projectData.length-1].lng},${projectData[projectData.length-1].travelDate}?units=si&exclude=hourly,flags,currently`)
     const res = await fetch(`https://api.darksky.net/forecast/5461f90b8cb3ab62a2d2d8b7929a5e64/${projectData[projectData.length-1].lat},${projectData[projectData.length-1].lng},${projectData[projectData.length-1].travelDate}?units=si&exclude=hourly,flags,currently`, {mode: 'no-cors'})
@@ -90,7 +84,7 @@ const darkSky = async () =>{
         }
     }
 
-    const darkSky2 = async () =>{
+    const darkSkyF = async () =>{
         console.log('CP 3__getDarkSky2 starts')
         console.log(`https://api.darksky.net/forecast/5461f90b8cb3ab62a2d2d8b7929a5e64/${projectData[projectData.length-1].lat},${projectData[projectData.length-1].lng}?units=si&exclude=hourly,flags,currently`)
         const res = await fetch(`https://api.darksky.net/forecast/5461f90b8cb3ab62a2d2d8b7929a5e64/${projectData[projectData.length-1].lat},${projectData[projectData.length-1].lng}?units=si&exclude=hourly,flags,currently`, {mode: 'no-cors'})
@@ -139,5 +133,4 @@ const darkSky = async () =>{
 app.get('/all', sendData);
 function sendData (req, res) {
     res.send(projectData);
-    console.log(projectData);
 };
