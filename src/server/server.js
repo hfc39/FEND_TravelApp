@@ -82,8 +82,8 @@ const darkSky = async () =>{
      const res = await fetch(`https://pixabay.com/api/?key=15724973-ef055a8d189206d736e1a60dd&image_type=photo&orientatin=horizontal&q=${projectData[0].city}`)
     try {
         const data = await res.json()
-        projectData[0].cityImage = data.hits[0].pageURL;
-        console.log('CP 5___PIXAPI DONE')
+        projectData[0].cityImage = data.hits[0].webformatURL;
+        console.log('CP 5___PIXAPI DONE at ___'+`https://pixabay.com/api/?key=15724973-ef055a8d189206d736e1a60dd&image_type=photo&orientatin=horizontal&q=${projectData[0].city}`)
         return data
          } catch (error){
             console.log("error", error);

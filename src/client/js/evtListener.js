@@ -8,12 +8,15 @@ function init () {
     e.preventDefault();
     const place = document.getElementById('city').value;
     const timeInput = document.getElementById("date").value;
-    console.log('pretend to print something')
+    console.log('5 pretend to print something')
     const time = toEpoch(timeInput);
     const now = Math.floor(new Date().getTime()/1000.0) 
     console.log(time)
-    goServer('/geo',{city: place,travelDate: time,currentTime: now})
-    .then (updateUI())
+    goServer('/geo',{city: place,travelDate: time,currentTime: now})  
+    //.then(function(res){
+    //    console.log('top')
+    //}).then(updateUI(serverData))
+    //})
 })
 }
 
