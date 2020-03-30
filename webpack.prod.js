@@ -5,6 +5,8 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const WorkboxPlugin = require('workbox-webpack-plugin');
+const dotenv = require('dotenv')
+
 
 module.exports = {
   entry: ['./src/client/index.js'], 
@@ -12,8 +14,13 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'bundle.js'
-    },
-    optimization: {
+  },
+  output: {
+    libraryTarget: 'var',
+    library: 'Client'
+  },
+  optimization: {
+      minimize: true,
       minimizer: [new TerserPlugin({}), new OptimizeCSSAssetsPlugin({})],
   },
 module: {
@@ -51,6 +58,8 @@ plugins: [
         filename: "./index.html",
     }),
     new MiniCssExtractPlugin({filename: '[name].css'}),
-    new WorkboxPlugin.GenerateSW()
+    new WorkboxPlugin.GenerateSW(),
+    new Dotenv()
+    
 ]
 }

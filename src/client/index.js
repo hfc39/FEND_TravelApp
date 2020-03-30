@@ -6,5 +6,5 @@ import { init } from './js/evtListener'
 
 import './style/RWD.scss'
 
-export { goServer,toEpoch,updateUIF,updateUIP }
+export { goServer,toEpoch,updateUIF,updateUIP,init }
 window.addEventListener('DOMContentLoaded', init);

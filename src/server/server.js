@@ -1,6 +1,7 @@
 const express = require('express');
 const fetch = require("node-fetch");
 const app = express();
+const path = require('path')
 
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -9,6 +10,9 @@ app.use(bodyParser.json());
 const cors = require('cors');
 app.use(cors());
 
+const dotenv = require('dotenv').config({path: path.join(__dirname, '.env')})
+//dotenv.config();
+
 app.use(express.static('dist'));
 
 app.get('/', function (req, res) {
@@ -16,9 +20,10 @@ app.get('/', function (req, res) {
 })
 
 // Setup Server
-const port = 8002;
+const port = 8085;
 app.listen(port,() => {
     console.log(`running on localhost: ${port}`);
+    console.log(`${process.env.Geo_ID}\n${process.env.Dark_ID}\n${process.env.Pix_ID}`)
 });
 
 const projectData = []
@@ -56,7 +61,10 @@ async function getAllData (req, res) {
 }
 
 const getGeo = async () =>{
-    const res = await fetch(`http://api.geonames.org/postalCodeSearchJSON?placename=${projectData[projectData.length-1].city}&username=carmen39&maxRows=1`);
+    let gid = process.env.Geo_ID;
+    console.log(gid)
+    console.log(`http://api.geonames.org/postalCodeSearchJSON?placename=${projectData[projectData.length-1].city}&username=${gid}&maxRows=1`)
+    const res = await fetch(`http://api.geonames.org/postalCodeSearchJSON?placename=${projectData[projectData.length-1].city}&username=${process.env.Geo_ID}&maxRows=1`);
     try {
     const allData = await res.json()
     console.log('CP 1__GET GEONAME')
@@ -73,8 +81,8 @@ const getGeo = async () =>{
 
 const darkSkyP = async () =>{
     console.log('CP 3__getDarkSky starts')
-    console.log(`https://api.darksky.net/forecast/5461f90b8cb3ab62a2d2d8b7929a5e64/${projectData[projectData.length-1].lat},${projectData[projectData.length-1].lng},${projectData[projectData.length-1].travelDate}?units=si&exclude=hourly,flags,currently`)
-    const res = await fetch(`https://api.darksky.net/forecast/5461f90b8cb3ab62a2d2d8b7929a5e64/${projectData[projectData.length-1].lat},${projectData[projectData.length-1].lng},${projectData[projectData.length-1].travelDate}?units=si&exclude=hourly,flags,currently`, {mode: 'no-cors'})
+    console.log(`https://api.darksky.net/forecast/${process.env.Dark_ID}/${projectData[projectData.length-1].lat},${projectData[projectData.length-1].lng},${projectData[projectData.length-1].travelDate}?units=si&exclude=hourly,flags,currently`)
+    const res = await fetch(`https://api.darksky.net/forecast/${process.env.Dark_ID}/${projectData[projectData.length-1].lat},${projectData[projectData.length-1].lng},${projectData[projectData.length-1].travelDate}?units=si&exclude=hourly,flags,currently`, {mode: 'no-cors'})
         try {
             const allData = await res.json()
             console.log(JSON.stringify(allData))
@@ -92,8 +100,8 @@ const darkSkyP = async () =>{
 
     const darkSkyF = async () =>{
         console.log('CP 3__getDarkSky2 starts')
-        console.log(`https://api.darksky.net/forecast/5461f90b8cb3ab62a2d2d8b7929a5e64/${projectData[projectData.length-1].lat},${projectData[projectData.length-1].lng}?units=si&exclude=hourly,flags,currently`)
-        const res = await fetch(`https://api.darksky.net/forecast/5461f90b8cb3ab62a2d2d8b7929a5e64/${projectData[projectData.length-1].lat},${projectData[projectData.length-1].lng}?units=si&exclude=hourly,flags,currently`, {mode: 'no-cors'})
+        console.log(`https://api.darksky.net/forecast/${process.env.Dark_ID}/${projectData[projectData.length-1].lat},${projectData[projectData.length-1].lng}?units=si&exclude=hourly,flags,currently`)
+        const res = await fetch(`https://api.darksky.net/forecast/${process.env.Dark_ID}/${projectData[projectData.length-1].lat},${projectData[projectData.length-1].lng}?units=si&exclude=hourly,flags,currently`, {mode: 'no-cors'})
             try {
                 const allData = await res.json()
                 projectData[projectData.length-1].weeklysum = allData.daily.summary;
@@ -119,14 +127,12 @@ const darkSkyP = async () =>{
         }
     
 
-
-
  async function pixaBay() {
-     const res = await fetch(`https://pixabay.com/api/?key=15724973-ef055a8d189206d736e1a60dd&image_type=photo&orientatin=horizontal&q=${projectData[projectData.length-1].city}`)
+     const res = await fetch(`https://pixabay.com/api/?key=${process.env.Pix_ID}&image_type=photo&orientatin=horizontal&q=${projectData[projectData.length-1].city}`)
     try {
         const data = await res.json()
         projectData[projectData.length-1].cityImage = data.hits[0].webformatURL;
-        console.log('CP 5___PIXAPI DONE at ___'+`https://pixabay.com/api/?key=15724973-ef055a8d189206d736e1a60dd&image_type=photo&orientatin=horizontal&q=${projectData[projectData.length-1].city}`)
+        console.log('CP 5___PIXAPI DONE at ___'+`https://pixabay.com/api/?key=${process.env.Pix_ID}&image_type=photo&orientatin=horizontal&q=${projectData[projectData.length-1].city}`)
         return data
          } catch (error){
             projectData[projectData.length-1].cityImage = "https://pixabay.com/get/57e4d1474355a914f1dc8460c62d307c1136d9e64e507441702b73d79545c3_640.jpg"

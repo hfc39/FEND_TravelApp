@@ -1,2 +1,4 @@
 node_modules
 dist
+process.env
+Untitled.code-workspace

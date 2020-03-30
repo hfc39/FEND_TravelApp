@@ -9,10 +9,10 @@ export const updateUIP = async (dataSet,url) => {
         const img = document.getElementById('left')
         const it = img.firstChild
         it.className = "new"
-        if (dataSet[dataSet.length-1].cityImage == 'error'){
-            it.src= '.././media/oops.jpg'          
-        } else {
+        if (typeof dataSet[dataSet.length-1].cityImage === 'string' || dataSet[dataSet.length-1].cityImage.length>6){
             it.src= uiData[uiData.length-1].cityImage
+        } else {
+            it.src= '.././media/oops.jpg'          
         }
     }catch (error){
         console.log('UpdateUI error'+ error);
