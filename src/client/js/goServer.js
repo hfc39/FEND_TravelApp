@@ -18,10 +18,14 @@ export const goServer = async (url='', data={})=>{
             const serverData = await data.json()
             //decide whether it goes to forecast or prediction
             let diff = serverData[serverData.length-1].travelDate-serverData[serverData.length-1].currentTime;
-            if (diff < 604800){
+            if (0<diff && diff< 604800){
+                console.log(serverData[serverData.length-1].travelDate-serverData[serverData.length-1].currentTime)
+                console.log('FORECAST 7 days')
                 Client.updateUIF(serverData)
                 return serverData
             } else {
+                console.log(serverData[serverData.length-1].travelDate-serverData[serverData.length-1].currentTime)
+                console.log('prediction 1 day only')
                 Client.updateUIP(serverData)
                 return serverData
             }

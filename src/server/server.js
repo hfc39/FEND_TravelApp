@@ -36,21 +36,21 @@ async function getAllData (req, res) {
     if (sec < 604800){
         projectData[projectData.length-1].mode = "forecast"
         await getGeo();
-        console.log('CP 2__PRINT PROJECT DATA')
+        console.log('CP 2__Got GeoName data, fetching Dark Sky')
         await darkSkyF();
-        console.log('CP 4__PRINT PROJECT DATA')
+        console.log('CP 4__Got Dark Sky data, fetching Pixabay')
         await pixaBay();
-        console.log('CP 6__PRINT PROJECT DATA')
+        console.log('CP 6__Data complete')
         res.send(projectData)
         // predict
     } else {
         projectData[projectData.length-1].mode = "predict"
         await getGeo();
-        console.log('CP 2__PRINT PROJECT DATA')
+        console.log('CP 2__Got GeoName data, fetching Dark Sky')
         await darkSkyP();
-        console.log('CP 4__PRINT PROJECT DATA')
+        console.log('CP 4__Got Dark Sky data, fetching Pixabay')
         await pixaBay();
-        console.log('CP 6__PRINT PROJECT DATA')
+        console.log('CP 6__Data complete')
         res.send(projectData)
     }
 }
@@ -59,8 +59,8 @@ const getGeo = async () =>{
     const res = await fetch(`http://api.geonames.org/postalCodeSearchJSON?placename=${projectData[projectData.length-1].city}&username=carmen39&maxRows=1`);
     try {
     const allData = await res.json()
-    console.log('CP 1__GET GEONAME')
-    //console.log(allData)
+    console.log('CP 1__Getting GeoName data')
+    //add to projectData
     projectData[projectData.length-1].lat = allData.postalCodes[0].lat;
     projectData[projectData.length-1].lng = allData.postalCodes[0].lng;
     return allData
@@ -72,12 +72,13 @@ const getGeo = async () =>{
 }
 
 const darkSkyP = async () =>{
-    console.log('CP 3__getDarkSky starts')
+    console.log('CP 3__Getting DarkSky data for predict')
     console.log(`https://api.darksky.net/forecast/5461f90b8cb3ab62a2d2d8b7929a5e64/${projectData[projectData.length-1].lat},${projectData[projectData.length-1].lng},${projectData[projectData.length-1].travelDate}?units=si&exclude=hourly,flags,currently`)
     const res = await fetch(`https://api.darksky.net/forecast/5461f90b8cb3ab62a2d2d8b7929a5e64/${projectData[projectData.length-1].lat},${projectData[projectData.length-1].lng},${projectData[projectData.length-1].travelDate}?units=si&exclude=hourly,flags,currently`, {mode: 'no-cors'})
         try {
             const allData = await res.json()
             console.log(JSON.stringify(allData))
+                //add to projectData
             projectData[projectData.length-1].tempHigh = allData.daily.data[0].temperatureHigh;
             projectData[projectData.length-1].tempLow = allData.daily.data[0].temperatureLow;
             projectData[projectData.length-1].humidity = allData.daily.data[0].humidity;
@@ -91,7 +92,7 @@ const darkSkyP = async () =>{
     }
 
     const darkSkyF = async () =>{
-        console.log('CP 3__getDarkSky2 starts')
+        console.log('CP 3__Getting DarkSky data for forecast')
         console.log(`https://api.darksky.net/forecast/5461f90b8cb3ab62a2d2d8b7929a5e64/${projectData[projectData.length-1].lat},${projectData[projectData.length-1].lng}?units=si&exclude=hourly,flags,currently`)
         const res = await fetch(`https://api.darksky.net/forecast/5461f90b8cb3ab62a2d2d8b7929a5e64/${projectData[projectData.length-1].lat},${projectData[projectData.length-1].lng}?units=si&exclude=hourly,flags,currently`, {mode: 'no-cors'})
             try {
@@ -118,7 +119,6 @@ const darkSkyP = async () =>{
             }
         }
     
-
 
 
  async function pixaBay() {
