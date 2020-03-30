@@ -14,11 +14,12 @@ app.use(express.static('dist'));
 app.get('/', function (req, res) {
     res.sendFile('dist/index.html')
 })
- 
+
 // Setup Server
 const port = 8002;
 app.listen(port,() => {
     console.log(`running on localhost: ${port}`);
+    console.log(`Using dotenv: \ngeoname id:${process.env.GeoID}\nDarkSky id:${process.env.DarkID}\nPixabay KEY=${process.env.PixID}`)
 });
 
 const projectData = []
@@ -56,7 +57,7 @@ async function getAllData (req, res) {
 }
 
 const getGeo = async () =>{
-    const res = await fetch(`http://api.geonames.org/postalCodeSearchJSON?placename=${projectData[projectData.length-1].city}&username=carmen39&maxRows=1`);
+    const res = await fetch(`http://api.geonames.org/postalCodeSearchJSON?placename=${projectData[projectData.length-1].city}&username=${process.env.GeoID}&maxRows=1`);
     try {
     const allData = await res.json()
     console.log('CP 1__Getting GeoName data')
@@ -73,8 +74,8 @@ const getGeo = async () =>{
 
 const darkSkyP = async () =>{
     console.log('CP 3__Getting DarkSky data for predict')
-    console.log(`https://api.darksky.net/forecast/5461f90b8cb3ab62a2d2d8b7929a5e64/${projectData[projectData.length-1].lat},${projectData[projectData.length-1].lng},${projectData[projectData.length-1].travelDate}?units=si&exclude=hourly,flags,currently`)
-    const res = await fetch(`https://api.darksky.net/forecast/5461f90b8cb3ab62a2d2d8b7929a5e64/${projectData[projectData.length-1].lat},${projectData[projectData.length-1].lng},${projectData[projectData.length-1].travelDate}?units=si&exclude=hourly,flags,currently`, {mode: 'no-cors'})
+    console.log(`https://api.darksky.net/forecast/${process.env.DarkID}/${projectData[projectData.length-1].lat},${projectData[projectData.length-1].lng},${projectData[projectData.length-1].travelDate}?units=si&exclude=hourly,flags,currently`)
+    const res = await fetch(`https://api.darksky.net/forecast/${process.env.DarkID}/${projectData[projectData.length-1].lat},${projectData[projectData.length-1].lng},${projectData[projectData.length-1].travelDate}?units=si&exclude=hourly,flags,currently`, {mode: 'no-cors'})
         try {
             const allData = await res.json()
             console.log(JSON.stringify(allData))
@@ -92,8 +93,8 @@ const darkSkyP = async () =>{
 
     const darkSkyF = async () =>{
         console.log('CP 3__Getting DarkSky data for forecast')
-        console.log(`https://api.darksky.net/forecast/5461f90b8cb3ab62a2d2d8b7929a5e64/${projectData[projectData.length-1].lat},${projectData[projectData.length-1].lng}?units=si&exclude=hourly,flags,currently`)
-        const res = await fetch(`https://api.darksky.net/forecast/5461f90b8cb3ab62a2d2d8b7929a5e64/${projectData[projectData.length-1].lat},${projectData[projectData.length-1].lng}?units=si&exclude=hourly,flags,currently`, {mode: 'no-cors'})
+        console.log(`https://api.darksky.net/forecast/${process.env.DarkID}/${projectData[projectData.length-1].lat},${projectData[projectData.length-1].lng}?units=si&exclude=hourly,flags,currently`)
+        const res = await fetch(`https://api.darksky.net/forecast/${process.env.DarkID}/${projectData[projectData.length-1].lat},${projectData[projectData.length-1].lng}?units=si&exclude=hourly,flags,currently`, {mode: 'no-cors'})
             try {
                 const allData = await res.json()
                 projectData[projectData.length-1].weeklysum = allData.daily.summary;
@@ -117,15 +118,15 @@ const darkSkyP = async () =>{
                 console.log("error", error);
             }
         }
-    
+
 
 
  async function pixaBay() {
-     const res = await fetch(`https://pixabay.com/api/?key=15724973-ef055a8d189206d736e1a60dd&image_type=photo&orientatin=horizontal&q=${projectData[projectData.length-1].city}`)
+     const res = await fetch(`https://pixabay.com/api/?key=${process.env.PixID}&image_type=photo&orientatin=horizontal&q=${projectData[projectData.length-1].city}`)
     try {
         const data = await res.json()
         projectData[projectData.length-1].cityImage = data.hits[0].webformatURL;
-        console.log('CP 5___PIXAPI DONE at ___'+`https://pixabay.com/api/?key=15724973-ef055a8d189206d736e1a60dd&image_type=photo&orientatin=horizontal&q=${projectData[projectData.length-1].city}`)
+        console.log('CP 5___PIXAPI DONE at ___'+`https://pixabay.com/api/?key=${process.env.PixID}&image_type=photo&orientatin=horizontal&q=${projectData[projectData.length-1].city}`)
         return data
          } catch (error){
             projectData[projectData.length-1].cityImage = "https://pixabay.com/get/57e4d1474355a914f1dc8460c62d307c1136d9e64e507441702b73d79545c3_640.jpg"
