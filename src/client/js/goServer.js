@@ -1,7 +1,9 @@
+//updatUI for Forecast scenario
 import { updateUIF } from "./updateUIF";
+//updatUI for prediction scenario
 import { updateUIP } from './updateUIP'
 
-export const goServer = async (url, data={})=>{
+export const goServer = async (url='', data={})=>{
     const res = await fetch ( url , {
         method:'POST',
         credentials:'same-origin',
@@ -14,12 +16,13 @@ export const goServer = async (url, data={})=>{
         const data = await fetch ('/all')
         try {
             const serverData = await data.json()
+            //decide whether it goes to forecast or prediction
             let diff = serverData[serverData.length-1].travelDate-serverData[serverData.length-1].currentTime;
             if (diff < 604800){
-                updateUIF(serverData)
+                Client.updateUIF(serverData)
                 return serverData
             } else {
-                updateUIP(serverData)
+                Client.updateUIP(serverData)
                 return serverData
             }
         }catch (error){

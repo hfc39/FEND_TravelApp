@@ -14,7 +14,7 @@ app.use(express.static('dist'));
 app.get('/', function (req, res) {
     res.sendFile('dist/index.html')
 })
-
+ 
 // Setup Server
 const port = 8002;
 app.listen(port,() => {
