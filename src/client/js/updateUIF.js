@@ -1,5 +1,5 @@
 export const updateUIF = async (dataSet,url) => {
-    console.log('CP 2__ UPDATE UI')
+    console.log('Update UI with 7 days weather forecast data.')
     const request = await fetch ('/all')
     try{
         const uiData = await request.json()

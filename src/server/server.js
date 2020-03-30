@@ -83,7 +83,6 @@ const darkSkyP = async () =>{
             projectData[projectData.length-1].tempLow = allData.daily.data[0].temperatureLow;
             projectData[projectData.length-1].humidity = allData.daily.data[0].humidity;
             projectData[projectData.length-1].uvIndex = allData.daily.data[0].uvIndex;
-            projectData[projectData.length-1].summary = allData.daily.data[0].summary;
             return allData
         }
         catch(error) {

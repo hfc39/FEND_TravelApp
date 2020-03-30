@@ -20,12 +20,12 @@ export const goServer = async (url='', data={})=>{
             let diff = serverData[serverData.length-1].travelDate-serverData[serverData.length-1].currentTime;
             if (0<diff && diff< 604800){
                 console.log(serverData[serverData.length-1].travelDate-serverData[serverData.length-1].currentTime)
-                console.log('FORECAST 7 days')
+                console.log('Travel date is close, fetch 7 days forecast data.')
                 Client.updateUIF(serverData)
                 return serverData
             } else {
                 console.log(serverData[serverData.length-1].travelDate-serverData[serverData.length-1].currentTime)
-                console.log('prediction 1 day only')
+                console.log('Travel date is more than 7 days or in the past, fetch predict data.')
                 Client.updateUIP(serverData)
                 return serverData
             }
